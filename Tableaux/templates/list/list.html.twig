@@ -1,0 +1,76 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello ListController!{% endblock %}
+
+{% block body %}
+<style>
+    .example-wrapper { margin: 1em auto; max-width: 800px; width: 95%; font: 18px/1.5 sans-serif; }
+    .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
+</style>
+
+<div class="example-wrapper">
+    <h1>Affichage des titres des formations en majuscule</h1>
+
+    <ul>
+    {% for i in formations %}
+        <li>{{i.Titre|upper}}</li>
+    {% endfor %}
+    </ul>
+
+    <h1>le nombre des formations : </h1>
+
+    <a>{{formations|length}}</a>
+
+    <h1>les titres des formations théoriques</h1>
+
+    <ul>
+    {% for i in formations %}
+        {% if i.Description == "formation theorique" %}
+            <li>{{i.Titre}}</li>
+        {% endif %}
+    {% endfor %}
+    </ul>
+
+    <h1>Affichage du titre de la formation ayant le plus grand nombre de participants</h1>
+
+    {% set max = 0 %}
+    {% set maxTile = ""%}
+    {% for i in formations %}
+        {% if i.nb_participants > max %}
+            {% set maxTile = i.Titre%}
+            {% set max = i.nb_participants%}
+        {% endif %}
+    {% endfor %}
+    <a>{{ maxTile }}</a>
+
+    <h1>nombre total de participants dans toutes les formations.</h1>
+
+    {% set count = 0 %}
+    {% for i in formations %}
+        {% set count = count + i.nb_participants %}
+    {% endfor %}
+    <a>{{ count }}</a>
+
+    <h1>condition dans le cas où le tableau n’est pas défini et/ou vide </h1>
+
+    {% if formations is empty %}
+        <a>Tableau est vide</a>
+    {% else %}
+        <a>Tableau non vide</a>
+    {% endif %}
+
+    <h1>Affichage Final</h1>
+
+    <ul>
+    {% for i in formations %}
+        <div style="display:flex;">
+            <li>{{i.Titre}}</li>
+            {% if i.nb_participants == 0 %}
+                <a href="{{path('formation',{'id':i.ref})}}"> Participer </a>
+            {% endif %}
+        </div>
+    {% endfor %}
+    </ul>
+
+</div>
+{% endblock %}

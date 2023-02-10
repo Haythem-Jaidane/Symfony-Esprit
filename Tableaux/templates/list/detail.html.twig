@@ -1,0 +1,26 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello ListController!{% endblock %}
+
+{% block body %}
+<style>
+    .example-wrapper { margin: 1em auto; max-width: 800px; width: 95%; font: 18px/1.5 sans-serif; }
+    .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
+</style>
+
+<div class="example-wrapper">
+    {% for i in formations %}
+        {% if i.ref == id %}
+            <h1>{{ i.Titre }}</h1></br>
+            <h2>Description : </h2>
+            <p>{{ i.Description }}</p>
+            <h2>Date Debut : </h2>
+            <a>{{ i.date_debut }}</a>
+            <h2>Date Fin : </h2>
+            <a>{{ i.date_fin }}</a></br>
+
+            <button>Participer</button>
+        {% endif %}
+    {% endfor %}
+</div>
+{% endblock %}
